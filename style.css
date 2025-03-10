@@ -1,67 +1,197 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-header {
-    background: #333;
+    background: linear-gradient(135deg, #1e1e2f, #2a2a40);
     color: #fff;
-    padding: 1rem 0;
-    text-align: center;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
+a {
     text-decoration: none;
+    color: inherit;
 }
 
-section {
-    padding: 2rem;
-    margin: 1rem 0;
+/* Header */
+header {
+    background: rgba(30, 30, 47, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ff6f61;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links li a {
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ff6f61;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(30, 30, 47, 0.8), rgba(42, 42, 64, 0.8)), url('https://via.placeholder.com/1500');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    color: #ff6f61;
 }
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background: #333;
+    padding: 0.75rem 1.5rem;
+    background: #ff6f61;
     color: #fff;
-    text-decoration: none;
     border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #e65a50;
+}
+
+/* About Section */
+.about {
+    padding: 4rem 2rem;
+    background: rgba(30, 30, 47, 0.8);
+    backdrop-filter: blur(10px);
+    margin: 2rem;
+    border-radius: 10px;
+}
+
+.about-content {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.skills {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.skills ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skills li {
+    margin: 0.5rem 0;
+}
+
+/* Portfolio Section */
+.portfolio {
+    padding: 4rem 2rem;
 }
 
 .projects {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-.project {
-    background: #fff;
+.project-card {
+    background: rgba(255, 255, 255, 0.1);
     padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    flex: 1 1 calc(33% - 2rem);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Contact Section */
+.contact {
+    padding: 4rem 2rem;
+    background: rgba(30, 30, 47, 0.8);
+    backdrop-filter: blur(10px);
+    margin: 2rem;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Footer */
 footer {
     text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
+    padding: 2rem;
+    background: rgba(30, 30, 47, 0.8);
+    backdrop-filter: blur(10px);
     margin-top: 2rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #ff6f61;
 }
