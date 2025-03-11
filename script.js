@@ -14,8 +14,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-
-
 // Form submission
 document.querySelector('form').addEventListener('submit', function (e) {
     e.preventDefault();
