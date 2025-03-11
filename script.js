@@ -13,6 +13,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+<<<<<<< HEAD
+
+=======
 // script.js
 // script.js
 const GITHUB_USERNAME = 'NeelChandwani1'; // Replace with your GitHub username
@@ -95,6 +98,7 @@ function renderHeatmap(contributions) {
 
 // Initialize the tracker
 fetchGitHubContributions();
+>>>>>>> parent of 73576f4 (Update script.js)
 
 // Form submission
 document.querySelector('form').addEventListener('submit', function (e) {
