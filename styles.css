@@ -81,6 +81,20 @@ nav {
     border-radius: 10px;
 }
 
+.circle-image {
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    display: block; 
+    margin: 0 auto; 
+}
+
+.image-container {
+    text-align: center; 
+    margin: 20px 0; 
+}
+
 .hero-content h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
