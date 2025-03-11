@@ -14,63 +14,83 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // script.js
-const GITHUB_USERNAME = 'NeelChandwani1'; 
+// script.js
+const GITHUB_USERNAME = 'NeelChandwani1'; // Replace with your GitHub username
+const GITHUB_TOKEN = 'your-github-token'; // Replace with a GitHub personal access token
 
-// Fetch GitHub contributions data
+// GraphQL query to fetch contribution data
+const query = `
+    query {
+        user(login: "${GITHUB_USERNAME}") {
+            contributionsCollection {
+                contributionCalendar {
+                    totalContributions
+                    weeks {
+                        contributionDays {
+                            date
+                            contributionCount
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+// Fetch GitHub contribution data
 async function fetchGitHubContributions() {
     try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events`);
+        const response = await fetch('https://api.github.com/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GITHUB_TOKEN}`
+            },
+            body: JSON.stringify({ query })
+        });
+
         const data = await response.json();
+        const weeks = data.data.user.contributionsCollection.contributionCalendar.weeks;
 
-        // Filter PushEvents (code contributions)
-        const contributions = data.filter(event => event.type === 'PushEvent').length;
+        // Flatten the contribution days into a single array
+        const contributions = weeks.flatMap(week => week.contributionDays);
 
-        // Render the chart
-        renderChart(contributions);
+        // Render the heatmap
+        renderHeatmap(contributions);
     } catch (error) {
         console.error('Error fetching GitHub data:', error);
     }
 }
 
-// Render the chart using Chart.js
-function renderChart(contributions) {
-    const ctx = document.getElementById('githubChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['GitHub Contributions'],
-            datasets: [{
-                label: 'Contributions',
-                data: [contributions],
-                backgroundColor: 'rgba(255, 111, 97, 0.2)',
-                borderColor: 'rgba(255, 111, 97, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of Contributions'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'GitHub Activity'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: `GitHub Contributions for ${GITHUB_USERNAME}`
-                }
-            }
-        }
-    });
+// Render the heatmap using D3.js
+function renderHeatmap(contributions) {
+    const width = 800; // Width of the heatmap
+    const height = 120; // Height of the heatmap
+    const cellSize = 15; // Size of each square in the heatmap
+
+    // Create an SVG element
+    const svg = d3.select('#heatmap')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    // Create a color scale for the heatmap
+    const colorScale = d3.scaleLinear()
+        .domain([0, d3.max(contributions, d => d.contributionCount)])
+        .range(['#ebedf0', '#216e39']); // GitHub's color scheme
+
+    // Create the heatmap squares
+    svg.selectAll('rect')
+        .data(contributions)
+        .enter()
+        .append('rect')
+        .attr('x', (d, i) => (i % 7) * cellSize) // 7 days in a week
+        .attr('y', (d, i) => Math.floor(i / 7) * cellSize) // Rows for weeks
+        .attr('width', cellSize - 2) // Add spacing between squares
+        .attr('height', cellSize - 2)
+        .attr('fill', d => colorScale(d.contributionCount))
+        .append('title') // Tooltip to show contribution count and date
+        .text(d => `${d.contributionCount} contributions on ${d.date}`);
 }
 
 // Initialize the tracker

@@ -193,9 +193,10 @@ nav {
     color: #ff6f61;
 }
 
-#githubChart {
-    max-width: 800px;
-    margin: 0 auto;
+#heatmap {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 /* Contact Section */
