@@ -177,6 +177,27 @@ nav {
     border-radius: 10px;
 }
 
+/* Github Contributions Section */
+#github-contributions {
+    padding: 4rem 2rem;
+    background: rgba(30, 30, 47, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+#github-contributions h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #ff6f61;
+}
+
+#githubChart {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* Contact Section */
 .contact {
     padding: 4rem 2rem;
