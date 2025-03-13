@@ -10,7 +10,7 @@ Welcome to my personal portfolio website! This project showcases my skills, proj
 - **Project Showcase**: Highlights my projects with links to GitHub repositories and live demos.
 - **Contact Form**: Easy way for visitors to get in touch (optional, if implemented).
 
-# 🛠️ Technologies Used
+## Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Libraries**: [Particles.js](https://vincentgarreau.com/particles.js/)
