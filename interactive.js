@@ -100,7 +100,6 @@ function initTerminal() {
 
 // Initialize all interactive components
 document.addEventListener('DOMContentLoaded', () => {
-    initInteractiveElements();
     initTerminal();
     
     // Smooth scroll for anchor links
