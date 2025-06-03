@@ -1,52 +1,7 @@
-// 3D Tilt Effect
-function initTiltEffect() {
-    const heroContent = document.querySelector('.hero-content');
-    
-    if (!heroContent) return;
-    
-    // Add perspective to the parent container
-    heroContent.style.perspective = '1000px';
-    
-    const handleMouseMove = (e) => {
-        // Get the bounding rectangle of the hero content
-        const rect = heroContent.getBoundingClientRect();
-        
-        // Calculate the center of the hero content
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Calculate mouse position relative to center
-        const mouseX = (e.clientX - centerX) / 20; // Reduce the divisor for more subtle effect
-        const mouseY = (e.clientY - centerY) / 20;
-        
-        // Apply the rotation with perspective
-        heroContent.style.transform = `perspective(1000px) rotateY(${mouseX}deg) rotateX(${-mouseY}deg)`;
-        
-        // Add shadow effect (optional)
-        heroContent.style.boxShadow = `${-mouseX}px ${-mouseY}px 30px rgba(0, 0, 0, 0.2)`;
-    };
-    
-    const handleMouseLeave = () => {
-        // Smoothly reset to original position
-        heroContent.style.transition = 'transform 0.5s ease-out';
-        heroContent.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
-        heroContent.style.boxShadow = 'none';
-        
-        // Remove transition after reset
-        setTimeout(() => {
-            heroContent.style.transition = 'transform 0.1s ease-out';
-        }, 500);
-    };
-    
-    // Add event listeners
-    heroContent.addEventListener('mousemove', handleMouseMove);
-    heroContent.addEventListener('mouseleave', handleMouseLeave);
-    
-    // Cleanup function (optional, but good practice)
-    return () => {
-        heroContent.removeEventListener('mousemove', handleMouseMove);
-        heroContent.removeEventListener('mouseleave', handleMouseLeave);
-    };
+// Initialize any interactive elements
+function initInteractiveElements() {
+    // This function is kept for future interactive elements
+    // Currently focusing on the terminal animation only
 }
 
 // Terminal Typing Animation
@@ -145,7 +100,7 @@ function initTerminal() {
 
 // Initialize all interactive components
 document.addEventListener('DOMContentLoaded', () => {
-    initTiltEffect();
+    initInteractiveElements();
     initTerminal();
     
     // Smooth scroll for anchor links
