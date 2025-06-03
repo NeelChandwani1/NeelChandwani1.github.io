@@ -2,10 +2,8 @@
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 const navItems = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('section');
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
 const currentYear = document.getElementById('current-year');
+const sections = document.querySelectorAll('section');
 
 // Set current year in footer
 if (currentYear) {
@@ -31,12 +29,22 @@ navItems.forEach(link => {
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        // Don't prevent default for empty hashes
+        if (this.getAttribute('href') === '#') return;
+        
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
         const targetElement = document.querySelector(targetId);
+        
         if (targetElement) {
+            // Close mobile menu if open
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Smooth scroll to target
             window.scrollTo({
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
@@ -45,13 +53,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Header scroll effect
+// Header scroll effect and active section highlighting
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 50) {
-        header.classList.add('scrolled');
+        header.style.background = 'rgba(10, 10, 10, 0.95)';
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        header.style.backdropFilter = 'blur(10px)';
+        header.style.padding = '1rem 0';
     } else {
-        header.classList.remove('scrolled');
+        header.style.background = 'transparent';
+        header.style.boxShadow = 'none';
+        header.style.backdropFilter = 'none';
+        header.style.padding = '1.5rem 0';
     }
 
     // Update active nav link based on scroll position
@@ -72,128 +86,61 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Custom cursor
-if (window.innerWidth > 1024) {
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+// Initialize animations on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // Add scroll reveal animation to elements with data-animate attribute
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('[data-animate]');
         
-        // Add a small delay to the follower for a trailing effect
-        setTimeout(() => {
-            cursorFollower.style.left = e.clientX + 'px';
-            cursorFollower.style.top = e.clientY + 'px';
-        }, 100);
-    });
-
-    // Add hover effects for interactive elements
-    const interactiveElements = ['a', 'button', '.btn', 'input', 'textarea', 'select'];
-    interactiveElements.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursorFollower.style.opacity = '0.5';
-            });
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            element.addEventListener('mouseleave', () => {
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.opacity = '1';
-            });
+            if (elementTop < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
         });
-    });
-} else {
-    // Hide custom cursor on mobile
-    cursor.style.display = 'none';
-    cursorFollower.style.display = 'none';
-}
-
-// Typewriter effect for hero subtitle
-const typewriterText = "Full Stack Developer";
-const typewriterElement = document.querySelector('.typewriter');
-
-if (typewriterElement) {
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100; // ms
+    };
     
-    function type() {
-        const currentText = typewriterElement.textContent;
+    // Initial check
+    animateOnScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Initialize glitch effect on hero title
+    const glitchText = document.querySelector('.glitch');
+    if (glitchText) {
+        const text = glitchText.textContent.trim();
+        glitchText.innerHTML = '';
         
-        if (!isDeleting && charIndex < typewriterText.length) {
-            // Typing
-            typewriterElement.textContent = typewriterText.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 100;
-        } else if (isDeleting && charIndex > 0) {
-            // Deleting
-            typewriterElement.textContent = typewriterText.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 50;
+        // Create three layers of text for the glitch effect
+        for (let i = 0; i < 3; i++) {
+            const span = document.createElement('span');
+            span.className = 'glitch-text';
+            span.textContent = text;
+            glitchText.appendChild(span);
         }
-        
-        // Change direction
-        if (!isDeleting && charIndex === typewriterText.length) {
-            isDeleting = true;
-            typingSpeed = 1500; // Pause at end
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-        }
-        
-        setTimeout(type, typingSpeed);
     }
     
-    // Start the typewriter effect after a delay
-    setTimeout(type, 1000);
-}
-
-// Add glitch effect to hero heading
-const glitchElement = document.querySelector('.glitch');
-if (glitchElement) {
-    glitchElement.addEventListener('mouseenter', () => {
-        glitchElement.style.animation = 'glitch 0.3s infinite';
-    });
+    // Add smooth scroll behavior for the whole document
+    document.documentElement.style.scrollBehavior = 'smooth';
     
-    glitchElement.addEventListener('mouseleave', () => {
-        glitchElement.style.animation = 'none';
-    });
-}
-
-// Add fade-in animation on scroll
-const fadeElements = document.querySelectorAll('.fade-in');
-
-const fadeInOnScroll = () => {
-    fadeElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+    // Remove the smooth scroll behavior when using the mouse wheel to prevent jank
+    let isScrolling = false;
+    window.addEventListener('wheel', () => {
+        document.documentElement.style.scrollBehavior = 'auto';
         
-        if (elementTop < windowHeight - 100) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
+        if (!isScrolling) {
+            isScrolling = true;
+            setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'smooth';
+                isScrolling = false;
+            }, 1000);
         }
-    });
-};
-
-// Initialize elements with fade-in class
-fadeElements.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(20px)';
-    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+    }, { passive: true });
 });
-
-// Run once on page load
-window.addEventListener('load', () => {
-    fadeInOnScroll();
-    
-    // Add scrolled class to header if page is not at top
-    if (window.scrollY > 50) {
-        document.querySelector('header').classList.add('scrolled');
-    }
-});
-
-// Run on scroll
-window.addEventListener('scroll', fadeInOnScroll);
-
-// Run on resize (in case of layout changes)
-window.addEventListener('resize', fadeInOnScroll);
 
 // Add hover effect to project cards
 const projectCards = document.querySelectorAll('.project-card');
