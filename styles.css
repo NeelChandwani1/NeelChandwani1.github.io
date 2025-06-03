@@ -363,16 +363,89 @@ nav {
     animation: fadeInUp 0.6s 0.2s forwards;
 }
 
-.hero h1 {
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    color: white;
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
     margin: 0 0 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    animation: fadeInUp 0.6s 0.3s forwards;
+}
+
+.glitch-text {
+    position: relative;
+    display: block;
     background: linear-gradient(90deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.3s forwards;
+}
+
+.glitch:hover .glitch-text:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch .glitch-text:nth-child(2),
+.glitch .glitch-text:nth-child(3) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch .glitch-text:nth-child(2) {
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: -2;
+    opacity: 0.8;
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+.glitch .glitch-text:nth-child(3) {
+    background: linear-gradient(90deg, #ffff00, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: -1;
+    opacity: 0.8;
+    animation: glitch-anim-3 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(-2px, 2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-3 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-4px, 2px); }
+    40% { transform: translate(-4px, -2px); }
+    60% { transform: translate(4px, 2px); }
+    80% { transform: translate(4px, -2px); }
+    100% { transform: translate(0); }
 }
 
 .hero h2 {
