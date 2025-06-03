@@ -154,3 +154,48 @@ projectCards.forEach(card => {
         card.style.setProperty('--mouse-y', `${y}px`);
     });
 });
+
+// Code Panel Functionality
+const codePanel = document.querySelector('.code-panel');
+const codePanelToggle = document.querySelector('.code-panel-toggle');
+const codePanelClose = document.querySelector('.code-panel-close');
+
+if (codePanelToggle && codePanel && codePanelClose) {
+    // Toggle panel with button
+    codePanelToggle.addEventListener('click', () => {
+        codePanel.classList.toggle('open');
+    });
+
+    // Close panel with close button
+    codePanelClose.addEventListener('click', () => {
+        codePanel.classList.remove('open');
+    });
+
+    // Close panel when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!codePanel.contains(e.target) && e.target !== codePanelToggle) {
+            codePanel.classList.remove('open');
+        }
+    });
+
+    // Prevent panel close when clicking inside
+    codePanel.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Add syntax highlighting (using a simple approach)
+    const codeElement = document.querySelector('.code-panel code');
+    if (codeElement) {
+        // This is a simple approach - consider using a library like Prism.js or Highlight.js for better results
+        const code = codeElement.textContent;
+        // Simple syntax highlighting for JavaScript
+        const highlightedCode = code
+            .replace(/(const|let|var|function|return|if|else|for|while|in|of|class|extends|import|export|default|from|as|async|await|try|catch|finally|throw|new|this|typeof|instanceof|delete|void|yield|debugger|with|static|super|implements|interface|package|private|protected|public|enum|export|import|require|module|type)(?=[^\w])/g, '<span class="token keyword">$1</span>')
+            .replace(/(\/\*[\s\S]*?\*\/|\/\/.*)/g, '<span class="token comment">$1</span>')
+            .replace(/(['"])(?:(?=(\\?))\2.)*?\1/g, '<span class="token string">$&</span>')
+            .replace(/(\d+)/g, '<span class="token number">$1</span>')
+            .replace(/(\w+)(?=\s*\()/g, '<span class="token function">$1</span>');
+        
+        codeElement.innerHTML = highlightedCode;
+    }
+}
