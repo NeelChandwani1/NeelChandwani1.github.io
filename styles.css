@@ -504,16 +504,35 @@ nav {
 }
 
 /* Text Selection */
-::selection {
-    background-color: var(--primary);
-    color: #fff;
+*::selection {
+    background: transparent;
+    color: inherit;
     text-shadow: none;
 }
 
-::-moz-selection {
-    background-color: var(--primary);
-    color: #fff;
+*::-moz-selection {
+    background: transparent;
+    color: inherit;
     text-shadow: none;
+}
+
+*::-webkit-selection {
+    background: transparent;
+    color: inherit;
+    text-shadow: none;
+}
+
+/* For specific elements that need selection */
+p::selection, 
+span::selection,
+div::selection,
+h1::selection,
+h2::selection,
+h3::selection,
+li::selection,
+a::selection {
+    background: transparent;
+    color: inherit;
 }
 
 /* Custom Cursor */
