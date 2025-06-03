@@ -363,6 +363,43 @@
         <p class="copyright">© <span id="current-year">2025</span> All Rights Reserved</p>
     </footer>
 
+    <!-- Code Panel -->
+    <div class="code-panel">
+        <div class="code-panel-header">
+            <span class="code-panel-title">about_me.js</span>
+            <button class="code-panel-close">&times;</button>
+        </div>
+        <div class="code-panel-content">
+            <pre><code>// Neel Chandwani - Full Stack Developer
+
+const aboutMe = {
+    name: 'Neel Chandwani',
+    role: 'Full Stack Developer',
+    location: 'San Francisco, CA',
+    skills: [
+        'JavaScript', 'React', 'Node.js',
+        'Python', 'MongoDB', 'AWS'
+    ],
+    contact: {
+        email: 'neel@example.com',
+        github: 'neelchandwani',
+        linkedin: 'in/neelchandwani'
+    },
+    motto: 'Building digital experiences that matter.'
+};
+
+function sayHello() {
+    return `Hello! I'm ${aboutMe.name}, a ${aboutMe.role}.`;
+}
+
+// Let's connect! 💻
+console.log(sayHello());</code></pre>
+        </div>
+    </div>
+    <button class="code-panel-toggle">
+        <i class="fas fa-code"></i>
+    </button>
+
     <script src="script.js"></script>
 </body>
 </html>
