@@ -326,140 +326,67 @@ nav {
 .hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 8rem 2rem 4rem;
+    text-align: center;
+    padding: 2rem;
     position: relative;
-    overflow: hidden;
     background-color: var(--dark);
     z-index: 1;
 }
 
-.hero-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-}
-
 .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
     position: relative;
     z-index: 2;
-    max-width: 700px;
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.greeting {
-    display: inline-block;
-    color: var(--primary);
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.2s forwards;
 }
 
 /* Glitch Effect */
 .glitch {
     position: relative;
-    color: white;
+    color: #fff;
     font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    margin: 0 0 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
+    animation: glitch 1s linear infinite;
 }
 
-.glitch-text {
-    position: relative;
-    display: block;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.glitch:hover .glitch-text:nth-child(1) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-
-.glitch .glitch-text:nth-child(2),
-.glitch .glitch-text:nth-child(3) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch .glitch-text:nth-child(2) {
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: -2;
-    opacity: 0.8;
-    animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-
-.glitch .glitch-text:nth-child(3) {
-    background: linear-gradient(90deg, #ffff00, #ff00ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: -1;
-    opacity: 0.8;
-    animation: glitch-anim-3 2s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim-1 {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
-
-@keyframes glitch-anim-2 {
-    0% { transform: translate(0); }
-    20% { transform: translate(2px, -2px); }
-    40% { transform: translate(2px, 2px); }
-    60% { transform: translate(-2px, -2px); }
-    80% { transform: translate(-2px, 2px); }
-    100% { transform: translate(0); }
-}
-
-@keyframes glitch-anim-3 {
-    0% { transform: translate(0); }
-    20% { transform: translate(-4px, 2px); }
-    40% { transform: translate(-4px, -2px); }
-    60% { transform: translate(4px, 2px); }
-    80% { transform: translate(4px, -2px); }
-    100% { transform: translate(0); }
+@keyframes glitch {
+    2%, 64% {
+        text-shadow: 2px 0 0 #ff00ff, -2px 0 0 #00ffff;
+    }
+    4%, 60% {
+        text-shadow: 2px 0 0 #ff00ff, -2px 0 0 #00ffff;
+        transform: translate(0);
+    }
+    62% {
+        text-shadow: 2px 0 0 #ff00ff, -2px 0 0 #00ffff;
+        transform: translate(0);
+    }
+    0%, 4%, 8%, 12%, 16%, 20%, 24%, 28%, 32%, 36%, 40%, 44%, 48%, 52%, 56%, 60%, 64%, 68%, 72%, 76%, 80%, 84%, 88%, 92%, 96%, 100% {
+        text-shadow: none;
+    }
 }
 
 .hero h2 {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    color: var(--light-gray);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--primary);
     margin: 0 0 1.5rem;
-    font-weight: 600;
+    font-weight: 400;
+    font-family: 'Fira Code', monospace;
     opacity: 0;
     animation: fadeInUp 0.6s 0.4s forwards;
 }
 
 .hero .subtitle {
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.25rem;
+    line-height: 1.6;
     color: var(--light-gray);
-    margin-bottom: 2.5rem;
+    margin: 0 auto 2.5rem;
     max-width: 600px;
     opacity: 0;
     animation: fadeInUp 0.6s 0.5s forwards;
