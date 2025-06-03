@@ -77,16 +77,10 @@ const Hero = () => {
       className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-background p-4 text-foreground dark:bg-background"
       onMouseMove={handleMouseMove}
     >
-      {/* Animated grid background */}
-      <motion.div 
-        className="absolute inset-0 z-0 bg-background/50"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0)',
-          backgroundSize: '20px 20px',
-          opacity: 0.8,
-          transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-        }}
-      />
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 z-0 bg-background/50">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,_rgba(255,255,255,0.02)_1px,_transparent_0)] bg-[size:20px_20px] opacity-50 pointer-events-none" />
+      </div>
       
       {/* Floating blobs */}
       <motion.div 
