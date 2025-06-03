@@ -44,15 +44,52 @@
     <main>
         <section id="home" class="hero">
             <div id="particles-js"></div>
-            <div class="hero">
-                <div class="container">
+            <div class="container">
+                <div class="hero-grid">
                     <div class="hero-content">
                         <h1 class="glitch" data-text="Neel Chandwani">Neel Chandwani</h1>
-                        <h2>Full Stack Developer</h2>
-                        <p class="subtitle">I build exceptional digital experiences with modern web technologies.</p>
+                        <p class="subtitle">Full Stack Developer</p>
                         <div class="cta-buttons">
-                            <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                            <a href="#projects" class="btn btn-secondary">View My Work</a>
+                            <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                            <a href="#projects" class="btn btn-outline">View My Work</a>
+                        </div>
+                    </div>
+                    <div class="code-window-wrapper">
+                        <div class="code-window">
+                            <div class="window-header">
+                                <div class="window-buttons">
+                                    <span class="window-button close"></span>
+                                    <span class="window-button minimize"></span>
+                                    <span class="window-button maximize"></span>
+                                </div>
+                                <div class="window-title">about_me.js</div>
+                            </div>
+                            <div class="code-content">
+                                <pre><code>// Neel Chandwani - Full Stack Developer
+
+const aboutMe = {
+    name: 'Neel Chandwani',
+    role: 'Full Stack Developer',
+    location: 'San Francisco, CA',
+    skills: [
+        'JavaScript', 'React', 'Node.js',
+        'Python', 'MongoDB', 'AWS'
+    ],
+    contact: {
+        email: 'neel@example.com',
+        github: 'neelchandwani',
+        linkedin: 'in/neelchandwani'
+    },
+    motto: 'Building digital experiences that matter.'
+};
+
+function sayHello() {
+    return `Hello! I'm ${aboutMe.name}, a ${aboutMe.role}.`;
+}
+
+// Let's connect! 💻
+console.log(sayHello());</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>

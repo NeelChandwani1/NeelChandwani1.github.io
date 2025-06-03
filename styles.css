@@ -327,12 +327,18 @@ nav {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
+    padding: 100px 0;
     position: relative;
-    background-color: var(--dark);
-    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content {
@@ -1375,6 +1381,152 @@ footer p {
     
     .hero .subtitle {
         font-size: 1rem;
+    }
+}
+
+/* Code Window in Hero Section */
+.code-window-wrapper {
+    position: relative;
+    z-index: 2;
+    perspective: 1000px;
+    margin-left: auto;
+    max-width: 100%;
+}
+
+.code-window {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%;
+}
+
+.code-window:hover {
+    transform: translateY(-5px) translateZ(10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.window-header {
+    height: 40px;
+    background: #252526;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid #333;
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.window-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.window-button.close { background: #ff5f56; }
+.window-button.minimize { background: #ffbd2e; }
+.window-button.maximize { background: #27c93f; }
+
+.window-title {
+    color: #9ca3af;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    flex-grow: 1;
+    text-align: center;
+    padding-right: 100px;
+}
+
+.code-content {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #1e1e1e;
+}
+
+.code-content pre {
+    margin: 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #d4d4d4;
+    tab-size: 2;
+}
+
+.code-content code {
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Syntax highlighting */
+.code-content .token.comment,
+.code-content .token.prolog,
+.code-content .token.doctype,
+.code-content .token.cdata {
+    color: #6a9955;
+}
+
+.code-content .token.punctuation {
+    color: #d4d4d4;
+}
+
+.code-content .token.property,
+.code-content .token.tag,
+.code-content .token.boolean,
+.code-content .token.number,
+.code-content .token.constant,
+.code-content .token.symbol,
+.code-content .token.deleted {
+    color: #b5cea8;
+}
+
+.code-content .token.selector,
+.code-content .token.attr-name,
+.code-content .token.string,
+.code-content .token.char,
+.code-content .token.builtin,
+.code-content .token.inserted {
+    color: #ce9178;
+}
+
+.code-content .token.operator,
+.code-content .token.entity,
+.code-content .token.url {
+    color: #d4d4d4;
+}
+
+.code-content .token.atrule,
+.code-content .token.attr-value,
+.code-content .token.keyword {
+    color: #569cd6;
+}
+
+.code-content .token.function,
+.code-content .token.class-name {
+    color: #dcdcaa;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .code-window-wrapper {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+    
+    .code-content {
+        max-height: 300px;
     }
 }
 
