@@ -503,18 +503,51 @@ nav {
     tab-size: 2;
 }
 
-/* Cursor styles */
+/* Custom Cursor */
 .cursor {
-    display: inline-block;
-    position: absolute;
-    width: 8px;
-    height: 1.2em;
-    background: var(--primary);
-    margin-left: 2px;
-    animation: blink 1s step-end infinite;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    position: fixed;
     pointer-events: none;
-    transform: translateY(0.15em);
-    border-radius: 1px;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor-follower {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease-out;
+    opacity: 0.7;
+}
+
+/* Cursor effects on hover */
+a:hover ~ .cursor,
+button:hover ~ .cursor,
+input:hover ~ .cursor,
+.cursor.hover,
+.cursor-hover {
+    width: 15px;
+    height: 15px;
+    background-color: var(--secondary);
+}
+
+a:hover ~ .cursor-follower,
+button:hover ~ .cursor-follower,
+input:hover ~ .cursor-follower,
+.cursor-follower.hover,
+.cursor-follower-hover {
+    width: 50px;
+    height: 50px;
+    opacity: 0.3;
 }
 
 @keyframes blink {
