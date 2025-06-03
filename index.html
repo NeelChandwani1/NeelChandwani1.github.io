@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neel Chandwani | Nerdy Dev</title>
+    <meta name="description" content="Neel Chandwani - Full Stack Developer with a passion for building cool stuff">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">NC</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Neel Chandwani">Neel Chandwani</h1>
+                <h2 class="typewriter">Full Stack Developer</h2>
+                <p class="subtitle">I build things for the web with a touch of magic ✨</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-window">
+                    <div class="window-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <pre><code class="language-javascript">
+const neel = {
+    name: 'Neel Chandwani',
+    role: 'Full Stack Developer',
+    skills: ['JavaScript', 'React', 'Node.js', 'Python'],
+    location: 'San Francisco, CA',
+    availableForWork: true
+};
+
+function welcome() {
+    return 'Hello World! 👋';
+}
+
+welcome();
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2 class="section-title"><span class="highlight">01.</span> About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Neel, a passionate developer who loves turning ideas into reality through code. With a strong foundation in web technologies, I create seamless digital experiences that blend functionality with aesthetics.</p>
+                    <p>My journey in tech started when I wrote my first "Hello World" program, and I've been hooked ever since. When I'm not coding, you can find me exploring new technologies, contributing to open source, or gaming.</p>
+                    <div class="skills">
+                        <h3>Technical Skills</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>Frontend</h4>
+                                <ul>
+                                    <li>HTML5 & CSS3</li>
+                                    <li>JavaScript (ES6+)</li>
+                                    <li>React.js</li>
+                                    <li>TypeScript</li>
+                                    <li>Tailwind CSS</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Backend</h4>
+                                <ul>
+                                    <li>Node.js</li>
+                                    <li>Express</li>
+                                    <li>Python</li>
+                                    <li>RESTful APIs</li>
+                                    <li>MongoDB</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Tools</h4>
+                                <ul>
+                                    <li>Git & GitHub</li>
+                                    <li>VS Code</li>
+                                    <li>Postman</li>
+                                    <li>Docker</li>
+                                    <li>AWS</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2 class="section-title"><span class="highlight">02.</span> Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);">
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Project One</h3>
+                        <p>A modern web application built with React and Node.js that solves complex problems with elegant solutions.</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);">
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Two</h3>
+                        <p>An interactive dashboard with real-time data visualization using D3.js and WebSockets.</p>
+                        <div class="project-tech">
+                            <span>D3.js</span>
+                            <span>WebSockets</span>
+                            <span>Express</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #5f27cd 0%, #00d2d3 100%);">
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Three</h3>
+                        <p>A machine learning model that predicts stock prices with 85% accuracy using Python and TensorFlow.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>Pandas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 class="section-title"><span class="highlight">03.</span> Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll get back to you as soon as possible!</p>
+                <a href="mailto:your.email@example.com" class="btn btn-primary">Say Hello</a>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Designed & Built by Neel Chandwani</p>
+        <p class="footer-links">
+            <a href="#home" class="footer-link">Home</a>
+            <span>•</span>
+            <a href="#about" class="footer-link">About</a>
+            <span>•</span>
+            <a href="#projects" class="footer-link">Projects</a>
+            <span>•</span>
+            <a href="#contact" class="footer-link">Contact</a>
+        </p>
+        <p class="copyright">© <span id="current-year">2025</span> All Rights Reserved</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
