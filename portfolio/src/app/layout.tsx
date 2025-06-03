@@ -15,36 +15,70 @@ const spaceGrotesk = Space_Grotesk({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Neel Chandwani | Developer',
-  description: 'Personal portfolio of Neel Chandwani - A passionate developer building digital experiences',
-  keywords: [
-    'Neel Chandwani',
-    'Developer',
-    'Portfolio',
-    'Web Developer',
-    'Software Engineer',
-    'React',
-    'Next.js',
-    'TypeScript',
-  ],
-  authors: [{ name: 'Neel Chandwani' }],
+// Generate metadata for better SEO and social sharing
+export async function generateMetadata(): Promise<Metadata> {
+  const title = 'Neel Chandwani | Developer';
+  const description = 'Personal portfolio of Neel Chandwani - A passionate developer building digital experiences';
+  const url = 'https://neelchandwani1.github.io';
+
+  return {
+    title,
+    description,
+    keywords: [
+      'Neel Chandwani',
+      'Developer',
+      'Portfolio',
+      'Web Developer',
+      'Software Engineer',
+      'React',
+      'Next.js',
+      'TypeScript',
+    ],
+    authors: [{ name: 'Neel Chandwani' }],
+    creator: 'Neel Chandwani',
+    publisher: 'Neel Chandwani',
+    themeColor: '#0a0e17',
+    metadataBase: new URL(url),
+    alternates: {
+      canonical: '/',
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      url,
+      title,
+      description,
+      siteName: 'Neel Chandwani',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      creator: '@neelchandwani',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+  };
+}
+
+// This is required for static export
+export const dynamic = 'force-static';
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
   themeColor: '#0a0e17',
-  viewport: 'width=device-width, initial-scale=1',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://neelchandwani.com',
-    title: 'Neel Chandwani | Developer',
-    description: 'Personal portfolio of Neel Chandwani - A passionate developer building digital experiences',
-    siteName: 'Neel Chandwani',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Neel Chandwani | Developer',
-    description: 'Personal portfolio of Neel Chandwani - A passionate developer building digital experiences',
-    creator: '@neelchandwani',
-  },
 };
 
 export default function RootLayout({

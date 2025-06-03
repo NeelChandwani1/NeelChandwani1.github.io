@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   output: 'export',
-  basePath: process.env.NODE_ENV === 'production' ? '/NeelChandwani1.github.io' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://NeelChandwani1.github.io/' : '',
+  basePath: isProd ? '' : '',
+  assetPrefix: isProd ? 'https://neelchandwani1.github.io' : '',
   images: {
     unoptimized: true,
     domains: ['images.unsplash.com'],
