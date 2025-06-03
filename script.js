@@ -43,23 +43,47 @@ function initTheme() {
 
 // Initialize particles.js
 function initParticles() {
-    if (typeof particlesJS !== 'undefined') {
+    if (window.particlesJS) {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#6e45e2' },
-                shape: { type: 'circle' },
+                number: { 
+                    value: 50, 
+                    density: { 
+                        enable: true, 
+                        value_area: 1000 
+                    } 
+                },
+                color: { 
+                    value: '#6e45e2' 
+                },
+                shape: { 
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                },
                 opacity: {
                     value: 0.5,
                     random: true,
-                    anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                    animation: {
+                        enable: true,
+                        speed: 1,
+                        minimumValue: 0.1,
+                        sync: false
+                    }
                 },
                 size: {
                     value: 3,
                     random: true,
-                    anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                    animation: {
+                        enable: true,
+                        speed: 2,
+                        minimumValue: 0.1,
+                        sync: false
+                    }
                 },
-                line_linked: {
+                lineLinked: {
                     enable: true,
                     distance: 150,
                     color: '#6e45e2',
@@ -72,20 +96,37 @@ function initParticles() {
                     direction: 'none',
                     random: true,
                     straight: false,
-                    out_mode: 'out',
-                    bounce: false
+                    outMode: 'out',
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
                 }
             },
             interactivity: {
-                detect_on: 'canvas',
+                detectOn: 'canvas',
                 events: {
-                    onhover: { enable: true, mode: 'grab' },
-                    onclick: { enable: true, mode: 'push' },
+                    onHover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: 'push'
+                    },
                     resize: true
                 },
                 modes: {
-                    grab: { distance: 140, line_linked: { opacity: 0.5 } },
-                    push: { particles_nb: 4 }
+                    grab: {
+                        distance: 180,
+                        lineLinked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 3
+                    }
                 }
             },
             retina_detect: true
@@ -165,6 +206,102 @@ function animateSkillBars() {
     });
 }
 
+// 3D Tilt Effect for Hero Section
+function initTiltEffect() {
+    const hero = document.querySelector('.hero-content');
+    if (!hero) return;
+    
+    hero.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = hero.getBoundingClientRect();
+        const x = (e.clientX - left) / width - 0.5;
+        const y = (e.clientY - top) / height - 0.5;
+        
+        hero.style.setProperty('--rotateX', `${y * 10}deg`);
+        hero.style.setProperty('--rotateY', `${-x * 10}deg`);
+    });
+    
+    hero.addEventListener('mouseleave', () => {
+        hero.style.setProperty('--rotateX', '0deg');
+        hero.style.setProperty('--rotateY', '0deg');
+    });
+}
+
+// Interactive Terminal
+function initTerminal() {
+    const terminal = document.querySelector('.code-window');
+    if (!terminal) return;
+    
+    const codeLines = [
+        { text: "// Welcome to my portfolio!", delay: 500 },
+        { text: "const neel = {", delay: 100 },
+        { text: "  name: 'Neel Chandwani',", delay: 50 },
+        { text: "  role: 'Full Stack Developer',", delay: 50 },
+        { text: "  skills: ['JavaScript', 'React', 'Node.js', 'Python'],", delay: 50 },
+        { text: "  location: 'San Francisco, CA',", delay: 50 },
+        { text: "  availableForWork: true", delay: 50 },
+        { text: "};", delay: 100 },
+        { text: "", delay: 200 },
+        { text: "function welcome() {", delay: 100 },
+        { text: "  return 'Hello World! 👋';", delay: 50 },
+        { text: "}", delay: 50 },
+        { text: "", delay: 100 },
+        { text: "// Type 'help' for commands", delay: 500, class: 'comment' }
+    ];
+    
+    let currentLine = 0;
+    const codeElement = terminal.querySelector('code');
+    
+    function typeNextLine() {
+        if (currentLine >= codeLines.length) {
+            initTerminalInput();
+            return;
+        }
+        
+        const line = codeLines[currentLine];
+        const lineElement = document.createElement('div');
+        
+        if (line.class) {
+            lineElement.className = line.class;
+        }
+        
+        codeElement.appendChild(lineElement);
+        typeText(lineElement, line.text, line.delay || 10, () => {
+            currentLine++;
+            setTimeout(typeNextLine, 200);
+        });
+    }
+    
+    function typeText(element, text, speed, onComplete) {
+        let i = 0;
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(timer);
+                if (onComplete) onComplete();
+            }
+        }, speed);
+    }
+    
+    function initTerminalInput() {
+        const inputLine = document.createElement('div');
+        inputLine.className = 'terminal-input';
+        inputLine.innerHTML = '<span class="prompt">$</span> <span class="cursor">_</span>';
+        codeElement.appendChild(inputLine);
+        
+        // Add blinking cursor effect
+        setInterval(() => {
+            const cursor = inputLine.querySelector('.cursor');
+            cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+        }, 500);
+    }
+    
+    // Clear any existing content
+    codeElement.innerHTML = '';
+    typeNextLine();
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -172,6 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSkillsChart();
     animateTimeline();
     animateSkillBars();
+    initTiltEffect();
+    initTerminal();
     
     // Mobile menu toggle
     if (hamburger) {
