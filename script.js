@@ -6,17 +6,186 @@ const sections = document.querySelectorAll('section');
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 const currentYear = document.getElementById('current-year');
+const themeToggle = document.getElementById('theme-toggle');
+const html = document.documentElement;
 
 // Set current year in footer
 if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
 }
 
-// Mobile menu toggle
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+// Theme Toggle
+function toggleTheme() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    
+    // Update toggle icon
+    const icon = themeToggle.querySelector('i');
+    icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+// Initialize theme from localStorage or prefer-color-scheme
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+    } else {
+        html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    }
+    
+    // Set initial icon
+    const icon = themeToggle.querySelector('i');
+    icon.className = html.getAttribute('data-theme') === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+// Initialize particles.js
+function initParticles() {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#6e45e2' },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#6e45e2',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    }
+}
+
+// Initialize skills chart
+function initSkillsChart() {
+    const ctx = document.getElementById('skillsChart');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Frontend', 'Backend', 'UI/UX', 'Mobile', 'DevOps', 'Testing'],
+            datasets: [{
+                label: 'Skills',
+                data: [85, 75, 80, 65, 70, 75],
+                backgroundColor: 'rgba(110, 69, 226, 0.2)',
+                borderColor: 'rgba(110, 69, 226, 1)',
+                pointBackgroundColor: 'rgba(110, 69, 226, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(110, 69, 226, 1)'
+            }]
+        },
+        options: {
+            scale: {
+                ticks: { beginAtZero: true, max: 100, display: false },
+                pointLabels: { fontSize: 12, color: 'var(--text-color)' },
+                gridLines: { color: 'var(--medium-gray)' },
+                angleLines: { color: 'var(--medium-gray)' }
+            },
+            legend: { display: false },
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: { backgroundColor: 'var(--dark-gray)', titleFontSize: 14, bodyFontSize: 12 },
+            animation: { duration: 2000 }
+        }
+    });
+}
+
+// Animate timeline items on scroll
+function animateTimeline() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    timelineItems.forEach(item => observer.observe(item));
+}
+
+// Animate skill bars on scroll
+function animateSkillBars() {
+    const skills = document.querySelectorAll('.skill-progress');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const width = entry.target.getAttribute('data-width');
+                entry.target.style.width = width;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    skills.forEach(skill => {
+        skill.setAttribute('data-width', skill.style.width);
+        skill.style.width = '0';
+        observer.observe(skill);
+    });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initParticles();
+    initSkillsChart();
+    animateTimeline();
+    animateSkillBars();
+    
+    // Mobile menu toggle
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+    }
+    
+    // Theme toggle
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
 });
 
 // Close mobile menu when clicking on a nav link
@@ -28,7 +197,7 @@ navItems.forEach(link => {
     });
 });
 
-// Smooth scrolling for anchor links
+// Smooth scrolling for anchor links with offset
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -37,8 +206,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            // Close mobile menu if open
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Smooth scroll to target
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
             window.scrollTo({
-                top: targetElement.offsetTop - 80,
+                top: offsetPosition,
                 behavior: 'smooth'
             });
         }
