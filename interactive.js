@@ -98,8 +98,120 @@ function initTerminal() {
     setTimeout(typeLine, 1500);
 }
 
+// 3D Tilt Effect
+function initTiltEffect() {
+    const heroContent = document.querySelector('.hero-content');
+    if (!heroContent) return;
+
+    heroContent.style.transformStyle = 'preserve-3d';
+    heroContent.style.transition = 'transform 0.1s ease-out';
+
+    document.addEventListener('mousemove', (e) => {
+        const rect = heroContent.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const mouseX = (e.clientX - centerX) / 30;
+        const mouseY = (e.clientY - centerY) / 30;
+        
+        heroContent.style.transform = `perspective(1000px) rotateY(${mouseX}deg) rotateX(${-mouseY}deg)`;
+    });
+
+    heroContent.addEventListener('mouseleave', () => {
+        heroContent.style.transition = 'transform 0.5s ease-out';
+        heroContent.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+        
+        setTimeout(() => {
+            heroContent.style.transition = 'transform 0.1s ease-out';
+        }, 500);
+    });
+}
+
+// Terminal Typing Animation
+function initTerminal() {
+    const codeElement = document.querySelector('.code-window code');
+    if (!codeElement) return;
+
+    const codeLines = [
+        '// Welcome to my digital playground!',
+        'const neel = {',
+        '  name: "Neel Chandwani",',
+        '  role: "Full Stack Developer",',
+        '  skills: ["JavaScript", "React", "Node.js", "Python"]',
+        '};',
+        '',
+        'function greet() {',
+        '  return "Hello, World! 👋";',
+        '}',
+        '',
+        '// Let\'s build something amazing together!',
+        'const project = await startProject({',
+        '  with: "Neel",',
+        '  goal: "Create something extraordinary"',
+        '});'
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+    let isDeleting = false;
+    let isEnd = false;
+    let typingSpeed = 50;
+    let deletingSpeed = 30;
+    let pauseBetweenLines = 1500;
+
+    function type() {
+        const currentCode = codeLines[currentLine];
+        
+        if (isDeleting) {
+            // Delete character
+            codeElement.textContent = currentCode.substring(0, currentChar - 1);
+            currentChar--;
+            
+            if (currentChar === 0) {
+                isDeleting = false;
+                currentLine = (currentLine + 1) % codeLines.length;
+                setTimeout(type, 500);
+                return;
+            }
+            
+            setTimeout(type, deletingSpeed);
+        } else {
+            // Add character
+            codeElement.textContent = currentCode.substring(0, currentChar + 1);
+            currentChar++;
+            
+            if (currentChar === currentCode.length) {
+                isEnd = true;
+                setTimeout(() => {
+                    isDeleting = true;
+                    setTimeout(type, 500);
+                }, pauseBetweenLines);
+                return;
+            }
+            
+            // Add slight delay after certain characters for more natural typing
+            const char = currentCode[currentChar];
+            const delay = ['.', ',', ';', '(', ')', '{', '}'].includes(char) ? 
+                typingSpeed * 3 : 
+                (char === ' ' ? typingSpeed : typingSpeed);
+                
+            setTimeout(type, delay);
+        }
+    }
+
+
+    // Initialize syntax highlighting
+    if (window.Prism) {
+        Prism.highlightAll();
+    }
+    
+    // Start typing after a short delay
+    setTimeout(type, 2000);
+}
+
 // Initialize all interactive components
 document.addEventListener('DOMContentLoaded', () => {
+    initTiltEffect();
     initTerminal();
     
     // Smooth scroll for anchor links
