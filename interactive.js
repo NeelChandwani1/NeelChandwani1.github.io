@@ -4,29 +4,49 @@ function initTiltEffect() {
     
     if (!heroContent) return;
     
-    const rect = heroContent.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const maxTilt = 15; // degrees
+    // Add perspective to the parent container
+    heroContent.style.perspective = '1000px';
     
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX - centerX;
-        const mouseY = e.clientY - centerY;
+    const handleMouseMove = (e) => {
+        // Get the bounding rectangle of the hero content
+        const rect = heroContent.getBoundingClientRect();
         
-        // Calculate rotation based on mouse position relative to center
-        const rotateY = (mouseX / (window.innerWidth / 2)) * maxTilt;
-        const rotateX = -(mouseY / (window.innerHeight / 2)) * maxTilt;
+        // Calculate the center of the hero content
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate mouse position relative to center
+        const mouseX = (e.clientX - centerX) / 20; // Reduce the divisor for more subtle effect
+        const mouseY = (e.clientY - centerY) / 20;
         
         // Apply the rotation with perspective
-        heroContent.style.setProperty('--rotateX', `${rotateX}deg`);
-        heroContent.style.setProperty('--rotateY', `${rotateY}deg`);
-    });
+        heroContent.style.transform = `perspective(1000px) rotateY(${mouseX}deg) rotateX(${-mouseY}deg)`;
+        
+        // Add shadow effect (optional)
+        heroContent.style.boxShadow = `${-mouseX}px ${-mouseY}px 30px rgba(0, 0, 0, 0.2)`;
+    };
     
-    // Reset rotation when mouse leaves the hero section
-    heroContent.addEventListener('mouseleave', () => {
-        heroContent.style.setProperty('--rotateX', '0deg');
-        heroContent.style.setProperty('--rotateY', '0deg');
-    });
+    const handleMouseLeave = () => {
+        // Smoothly reset to original position
+        heroContent.style.transition = 'transform 0.5s ease-out';
+        heroContent.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+        heroContent.style.boxShadow = 'none';
+        
+        // Remove transition after reset
+        setTimeout(() => {
+            heroContent.style.transition = 'transform 0.1s ease-out';
+        }, 500);
+    };
+    
+    // Add event listeners
+    heroContent.addEventListener('mousemove', handleMouseMove);
+    heroContent.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Cleanup function (optional, but good practice)
+    return () => {
+        heroContent.removeEventListener('mousemove', handleMouseMove);
+        heroContent.removeEventListener('mouseleave', handleMouseLeave);
+    };
 }
 
 // Terminal Typing Animation
