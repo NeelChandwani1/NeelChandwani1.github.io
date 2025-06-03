@@ -503,6 +503,19 @@ nav {
     tab-size: 2;
 }
 
+/* Text Selection */
+::selection {
+    background-color: var(--primary);
+    color: #fff;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background-color: var(--primary);
+    color: #fff;
+    text-shadow: none;
+}
+
 /* Custom Cursor */
 .cursor {
     width: 10px;
