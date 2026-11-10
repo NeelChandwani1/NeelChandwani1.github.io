@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neel Chandwani | Swimming</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="swimming.html">Swimming</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main>
+    <h2>My Hobby: Swimming</h2>
+
+    <img src="images/pool.jpeg" alt="A swimming pool with lane lines">
+
+    <p>
+      Swimming is my favorite way to stay active and take a break from school. I first
+      started swimming when I was [AGE] years old, and over time it went from something I
+      did for fun to a regular part of my weekly schedule. These days I try to get in the
+      pool several times a week, usually at [POOL / GYM NAME] on campus.
+    </p>
+
+    <p>
+      What I love most about swimming is how calm it makes me feel. Once I am in the water,
+      there are no notifications, no assignments, and no distractions. It is just me, the
+      lane lines, and my breathing. At the same time, it is a great full-body workout that
+      builds endurance, strength, and lung capacity. A good swim always leaves me feeling
+      refreshed and ready to focus on the rest of my day. It is also a sport I can
+      keep doing for the rest of my life.
+    </p>
+
+    <p>
+      Swimming has also taught me a lot about setting goals. Whether it is shaving a few
+      seconds off my 100-yard time or swimming more laps than last week, there is always
+      something to work toward. Tracking my progress keeps me motivated, and seeing
+      improvement over time is really rewarding. Below are my favorite strokes and a chart
+      of how many yards I swam each day last week.
+    </p>
+
+    <h3>My Favorite Strokes</h3>
+    <ol>
+      <li>Butterfly</li>
+      <li>Breastroke</li>
+      <li>Freestyle</li>
+      <li>Backstroke</li>
+    </ol>
+
+    <h3>Yards Swum Last Week</h3>
+    <div id="chart"></div>
+  </main>
+
+  <footer id="contact">
+    <h3>Contact Me</h3>
+    <p>
+      Email: <a href="mailto:chandwani.n@northeastern.edu">chandwani.n@northeastern.edu</a><br>
+      Instagram: <a href="https://www.instagram.com/neelmama9/" target="_blank">@neelmama9</a>
+    </p>
+  </footer>
+
+  <script>
+    const data = [
+      { day: "Mon", yards: 2231 },
+      { day: "Tue", yards: 0 },
+      { day: "Wed", yards: 2983 },
+      { day: "Thu", yards: 0 },
+      { day: "Fri", yards: 1474 },
+      { day: "Sat", yards: 0 },
+      { day: "Sun", yards: 1000 }
+    ];
+
+    const width = 500, height = 300;
+    const margin = { top: 20, right: 20, bottom: 40, left: 50 };
+
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const x = d3.scaleBand()
+      .domain(data.map(d => d.day))
+      .range([margin.left, width - margin.right])
+      .padding(0.2);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.yards)])
+      .nice()
+      .range([height - margin.bottom, margin.top]);
+
+    svg.selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", d => x(d.day))
+      .attr("y", d => y(d.yards))
+      .attr("width", x.bandwidth())
+      .attr("height", d => y(0) - y(d.yards))
+      .attr("fill", "#0077b6");
+
+    svg.append("g")
+      .attr("transform", `translate(0, ${height - margin.bottom})`)
+      .call(d3.axisBottom(x));
+
+    svg.append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(y));
+  </script>
+
+</body>
+</html>
